@@ -20,25 +20,32 @@ def train_word2Vec(tokens_list: list[list[str]],vector_size,window,min_count,ski
     # model.save(name)
     return model
 
-def vectorize_single_profile(model, tokens: list[str]):
+def vectorize_single_profile(model, model_type,tokens: list[str]):
     vector_token = []
-    for token in tokens:
-        if token not in model.wv:
-            pass
-        else:
-            vector_token.append(model.wv[token])
-    if not vector_token:
-        return np.zeros(model.vector_size)
-    return np.array(vector_token).mean(axis=0)
-        
-def load_gloVe():
-    glove_model = gensim.downloader.api.load("glove-wiki-gigaword-100")
-    return glove_model
+    if model_type=='glove':
+        for token in tokens:
+            if token not in model.keys():
+                pass
+            else:
+                vector_token.append(model[token])
+        if not vector_token:
+            return np.zeros(model.vector_size)
+        return np.array(vector_token).mean(axis=0)
+    else:
+        for token in tokens:
+            if token not in model.wv:
+                pass
+            else:
+                vector_token.append(model.wv[token])
+        if not vector_token:
+            return np.zeros(model.vector_size)
+        return np.array(vector_token).mean(axis=0)
 
-def vectorize_multiple_profile(model, tokens_list: list[list[str]],save: bool = True):
+
+def vectorize_multiple_profile(model, model_type,tokens_list: list[list[str]],save: bool = True):
     list_vector = [] 
     for tokens in tokens_list:
-        vector = vectorize_single_profile(model,tokens)
+        vector = vectorize_single_profile(model,model_type,tokens)
         list_vector.append(vector)
     array_vector = np.array(list_vector)
     norms = np.linalg.norm(array_vector,axis=1, keepdims=True)
@@ -46,6 +53,7 @@ def vectorize_multiple_profile(model, tokens_list: list[list[str]],save: bool = 
     # if save:
     #     np.save("tutor_profiles.npy",array_vector_normalized)
     return array_vector_normalized
+
 
 def find_similar_words(model, word):
     return model.wv.most_similar(word, topn=10) 

@@ -23,7 +23,7 @@ pip install -r requirements.txt
 To start the project, run:
 
 ```bash
-python main.py
+python main.py glove_path
 ```
 
 When launching the application, the user has two possible choices:
@@ -60,6 +60,17 @@ load
 The application will then retrieve the saved persona and use it directly inside the recommendation pipeline.
 
 ---
+
+## Choose embedder model
+
+The user also needs to choose the model to embed words : 
+
+* hand-made Word2Vec model trained on bio of tutors datasets
+* Use [GloVe](https://nlp.stanford.edu/projects/glove/) an unsupervised learning algorithm for obtaining vector representations for words. In this case, you need to download [glove.2024.wikigiga.100d.zip](https://nlp.stanford.edu/data/wordvecs/glove.2024.wikigiga.100d.zip) from their website and to place it in :
+```text
+./models/glove/wiki_giga_2024_100_MFT20_vectors_seed_2024_alpha_0.75_eta_0.05.050_combined.txt
+```
+Or give the path to the file with **glove_path** parameter when running the command
 
 # Problem Statement
 
@@ -203,6 +214,7 @@ Recommended Tutors
 ## Natural Language Processing
 
 * Word2Vec (Gensim)
+* GloVe
 * Tokenization (nltk)
 * Stopword Removal (nltk)
 * Mean Pooling (numpy)
@@ -248,9 +260,6 @@ This is one of the main advantages of the hybrid architecture.
 
 # Authors
 
-Developed as an academic project on for IS class HCMUT by Noa RISPAL:
-
-* Word Embeddings
-* Recommender Systems
+Developed as an academic project on for Intelligent Systems class (HCMUT) by Noa RISPAL:
 
 
