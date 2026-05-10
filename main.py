@@ -137,6 +137,7 @@ def main(data,weights={'cb': 0.9, 'cf': 0.1},glove=False):
         print(f"- {tutor_obj.fullname} \n\t -> Domain: {tutor_obj.subject} \n\t -> Precisely: {tutor_obj.precise_domain} \n\t -> Bio: {tutor_obj.bio} \n\t -> Price: {tutor_obj.hourly_rate}  \n\t -> Cover needs: {tutor_obj.special_needs}" )
 
 if __name__ == "__main__":
+    glove_path = False
     if len(sys.argv) > 1:
         glove_path = sys.argv[1]
     load_data = input("Do you want to create your persona or to load one ? [create/load] : ")
